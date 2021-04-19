@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <TextView
@@ -34,113 +34,123 @@
             app:srcCompat="@drawable/propuestalogo" />
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/name"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Nombre"
-        android:inputType="textEmailAddress"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
-
-    <EditText
-        android:id="@+id/surname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Apellido"
-        android:inputType="textEmailAddress"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        android:layout_marginEnd="25dp"
+        android:background="#004D40"
+        android:backgroundTint="#004D40"
+        android:textColorHint="#BFFFFFFF"
+        app:hintTextColor="#FAF7F7">
 
-    <EditText
-        android:id="@+id/email"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#004D40"
+            android:backgroundTint="#00000000"
+            android:hint="User"
+            android:textColor="#E6DDDD"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Correo Electronico"
-        android:inputType="textEmailAddress"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:background="#004D40"
+        android:backgroundTint="#004D40"
+        android:textColorHint="#BFFFFFFF"
+        app:hintTextColor="#FAF7F7">
 
-    <EditText
-        android:id="@+id/password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#004D40"
+            android:backgroundTint="#00000000"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="#E6DDDD"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:background="#004D40"
+        android:backgroundTint="#004D40"
+        android:textColorHint="#BFFFFFFF"
+        app:hintTextColor="#FAF7F7"
+        app:passwordToggleEnabled="true">
 
-    <EditText
-        android:id="@+id/password_confirmed"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#004D40"
+            android:backgroundTint="#00000000"
+            android:hint="Password"
+            android:password="true"
+            android:textColor="#E6DDDD"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Confirmar contraseña"
-        android:inputType="textPassword"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:background="#004D40"
+        android:backgroundTint="#004D40"
+        android:textColorHint="#BFFFFFFF"
+        app:hintTextColor="#FAF7F7"
+        app:passwordToggleEnabled="true">
 
-    <EditText
-        android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Telefono (Opcional)"
-        android:inputType="textPassword"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_confirmed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#004D40"
+            android:backgroundTint="#00000000"
+            android:hint="Confirm Password"
+            android:password="true"
+            android:textColor="#E6DDDD"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="45dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="0dp"
             android:layout_marginRight="25dp"
             android:layout_weight="1"
             android:text="Cancelar" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="55dp"
             android:layout_marginRight="25dp"
             android:layout_weight="1"
-            android:text="Siguiente" />
+            android:text="Registrarse" />
     </LinearLayout>
 
 </LinearLayout>
