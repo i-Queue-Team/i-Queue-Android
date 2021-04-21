@@ -42,8 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
         email_editext = findViewById(R.id.email);
         pass_editext = findViewById(R.id.password);
         confirm_pass_editext = findViewById(R.id.password_confirmed);
-        cancel = findViewById(R.id.cancel);
-        register = findViewById(R.id.register);
+        cancel = findViewById(R.id.register_login);
+        register = findViewById(R.id.login);
         
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +106,7 @@ public class RegisterActivity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         String status = respuesta.getStatus();
                         if(status == "success"){
-                            Toast.makeText(RegisterActivity.this, "Has entrado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Te has registrado correctamente", Toast.LENGTH_SHORT).show();
                             //Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -14,4 +14,8 @@ public interface WebServiceClient {
     @Headers({"Content-Type: application/json", "Accept: */*"})
     @POST("register")
     Call<Respuesta> Register (@Body String user, String email, String password);
+
+    @Headers({"Content-Type: application/json", "Accept: */*"})
+    @POST("login")
+    Call<Respuesta> doLogin (@Body String email, String password);
 }

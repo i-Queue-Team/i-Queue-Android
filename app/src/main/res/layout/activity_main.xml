@@ -16,33 +16,52 @@
         android:layout_marginTop="55dp"
         app:srcCompat="@drawable/propuestalogo" />
 
-    <EditText
-        android:id="@+id/email"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        android:layout_marginEnd="25dp"
+        android:background="#004D40"
+        android:backgroundTint="#004D40"
+        android:textColorHint="#BFFFFFFF"
+        app:hintTextColor="#FAF7F7">
 
-    <EditText
-        android:id="@+id/password"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#004D40"
+            android:backgroundTint="#00000000"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:textColor="#E6DDDD"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginRight="25dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:shadowColor="#FFFFFF"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#BFFFFFFF" />
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        android:background="#004D40"
+        android:backgroundTint="#004D40"
+        android:textColorHint="#BFFFFFFF"
+        app:hintTextColor="#FAF7F7"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#004D40"
+            android:backgroundTint="#00000000"
+            android:hint="Password"
+            android:password="true"
+            android:textColor="#E6DDDD"
+            android:textColorHint="#FFFFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
         android:id="@+id/textView"
@@ -62,7 +81,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cancel"
+            android:id="@+id/register_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
@@ -72,7 +91,7 @@
             android:text="Registro" />
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
