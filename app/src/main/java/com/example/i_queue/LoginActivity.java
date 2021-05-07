@@ -3,6 +3,7 @@ package com.example.i_queue;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText email_field, pass_field;
     private String email_text, pass_text;
@@ -49,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 pass_text = pass_field.getText().toString();
 
                 if(email_text.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Introduce un email para iniciar sesion", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Introduce un email para iniciar sesion", Toast.LENGTH_SHORT).show();
                 }else if(!validarEmail(email_text)){
-                    Toast.makeText(MainActivity.this, "Introduce un email correcto para iniciar sesion", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Introduce un email correcto para iniciar sesion", Toast.LENGTH_SHORT).show();
                 }else if(pass_text.isEmpty()){
-                    Toast.makeText(MainActivity.this, "Introduce tu contraseña para iniciar sesion", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Introduce tu contraseña para iniciar sesion", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         String status = respuesta.getStatus();
                         if(status == "success"){
-                            Toast.makeText(MainActivity.this, "Has entrado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Has entrado", Toast.LENGTH_SHORT).show();
                             //Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
         });

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_store"
+        android:icon="@drawable/ic_baseline_store_24"
+        android:title="Tiendas"
+        android:color ="@color/white"/>
+    <item
+        android:id="@+id/nav_queue"
+        android:icon="@drawable/queue"
+        android:title="Cola"
+        android:color ="@color/white"/>
+    <item
+        android:id="@+id/nav_map"
+        android:icon="@drawable/ic_baseline_map_24"
+        android:title="Mapa"
+        android:color ="@color/white"/>
+
+</menu>

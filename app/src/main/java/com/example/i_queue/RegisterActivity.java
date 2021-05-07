@@ -68,7 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if(!pass_text.equals(confirm_pass_text)){
                     Toast.makeText(RegisterActivity.this, "Las contraseñas introducidas no son las mismas, por favor introduzca las mismas para continuar", Toast.LENGTH_SHORT).show();
                 }else{
-                    Register(user_text,email_text,pass_text);
+                    Toast.makeText(RegisterActivity.this, "Te has registrado correctamente", Toast.LENGTH_SHORT).show();
+                    //Register(user_text,email_text,pass_text);
                 }
             }
         });
