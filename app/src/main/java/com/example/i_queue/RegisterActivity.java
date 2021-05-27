@@ -9,10 +9,12 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.example.i_queue.models.Respuesta;
+import com.example.i_queue.models.Respuesta_Login;
 import com.example.i_queue.webservice.WebServiceClient;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import okhttp3.OkHttpClient;
@@ -37,6 +39,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
         setTitle("Registro de i-Queue");
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         user_editext = findViewById(R.id.user);
         email_editext = findViewById(R.id.email);
@@ -68,8 +73,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if(!pass_text.equals(confirm_pass_text)){
                     Toast.makeText(RegisterActivity.this, "Las contraseñas introducidas no son las mismas, por favor introduzca las mismas para continuar", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(RegisterActivity.this, "Te has registrado correctamente", Toast.LENGTH_SHORT).show();
-                    //Register(user_text,email_text,pass_text);
+                    Register(user_text,email_text,pass_text);
                 }
             }
         });
@@ -98,25 +102,34 @@ public class RegisterActivity extends AppCompatActivity {
                 .client(httpClientBuilder.build())
                 .build();
         WebServiceClient client = retrofit.create(WebServiceClient.class);
-        Call<Respuesta> llamada = client.Register(user,email,password);
-        llamada.enqueue(new Callback<Respuesta>() {
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("name", user);
+        hashMap.put("email", email);
+        hashMap.put("password", password);
+
+
+        Call<Respuesta_Login> llamada = client.Register(hashMap);
+        llamada.enqueue(new Callback<Respuesta_Login>() {
             @Override
-            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                Respuesta respuesta = response.body();
-                if(respuesta != null){
+            public void onResponse(Call<Respuesta_Login> call, Response<Respuesta_Login> response) {
+                Respuesta_Login respuestaLogin = response.body();
                     if(response.isSuccessful()){
-                        String status = respuesta.getStatus();
-                        if(status == "success"){
+                        String status = respuestaLogin.getStatus();
+                        if(status.equals("success")){
                             Toast.makeText(RegisterActivity.this, "Te has registrado correctamente", Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            String email = respuestaLogin.getValidator_errors().getEmail();
+                            Toast.makeText(RegisterActivity.this, email, Toast.LENGTH_SHORT).show();
                         }
                     }
-                }
             }
 
             @Override
-            public void onFailure(Call<Respuesta> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Respuesta_Login> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
             }
         });
 

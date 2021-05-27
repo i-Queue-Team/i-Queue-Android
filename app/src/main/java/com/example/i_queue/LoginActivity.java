@@ -1,7 +1,10 @@
 package com.example.i_queue;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -10,9 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.i_queue.models.Respuesta;
+import com.example.i_queue.models.Respuesta_Login;
 import com.example.i_queue.webservice.WebServiceClient;
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 import okhttp3.OkHttpClient;
@@ -26,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText email_field, pass_field;
-    private String email_text, pass_text;
+    private String email_text, pass_text, token;
     private Button login, register_login;
     private Retrofit retrofit;
     private HttpLoggingInterceptor loggingInterceptor;
@@ -36,7 +40,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("Login de i-Queue");
+        setTitle("i-Queue");
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         email_field = findViewById(R.id.email_log);
         pass_field = findViewById(R.id.password_log);
@@ -55,7 +62,17 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Introduce un email correcto para iniciar sesion", Toast.LENGTH_SHORT).show();
                 }else if(pass_text.isEmpty()){
                     Toast.makeText(LoginActivity.this, "Introduce tu contraseña para iniciar sesion", Toast.LENGTH_SHORT).show();
+                }else{
+                    Login(email_text, pass_text);
                 }
+            }
+        });
+
+        register_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -78,24 +95,38 @@ public class LoginActivity extends AppCompatActivity {
                 .client(httpClientBuilder.build())
                 .build();
         WebServiceClient client = retrofit.create(WebServiceClient.class);
-        Call<Respuesta> llamada = client.doLogin(email, password);
-        llamada.enqueue(new Callback<Respuesta>() {
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("email", email);
+        hashMap.put("password", password);
+
+        Call<Respuesta_Login> llamada = client.doLogin(hashMap);
+        llamada.enqueue(new Callback<Respuesta_Login>() {
             @Override
-            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                Respuesta respuesta = response.body();
-                if(respuesta != null){
+            public void onResponse(Call<Respuesta_Login> call, Response<Respuesta_Login> response) {
+                Respuesta_Login respuestaLogin = response.body();
+                if(respuestaLogin != null){
                     if(response.isSuccessful()){
-                        String status = respuesta.getStatus();
-                        if(status == "success"){
+                        String status = respuestaLogin.getStatus();
+                        if(status.equals("success")){
                             Toast.makeText(LoginActivity.this, "Has entrado", Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
+                            token = respuestaLogin.getToken();
+                            SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
+                            editor.putString("token", token);
+                            editor.apply();
+                            Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
+                            LoginActivity.this.startActivity(myIntent);
+                        }else{
+                            String respuesta = respuestaLogin.getMessage();
+                            Toast.makeText(LoginActivity.this, respuesta, Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<Respuesta> call, Throwable t) {
+            public void onFailure(Call<Respuesta_Login> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
 
             }
