@@ -1,7 +1,7 @@
 package com.example.i_queue.webservice;
 
-import com.example.i_queue.models.ListShops;
-import com.example.i_queue.models.Respuesta_Login;
+import com.example.i_queue.models.Respuesta;
+import com.example.i_queue.models.Respuesta_Library;
 
 import java.util.HashMap;
 
@@ -18,13 +18,13 @@ public interface WebServiceClient {
 
     @Headers({"Content-Type: application/json", "Accept: */*"})
     @POST("register")
-    Call<Respuesta_Login> Register (@Body HashMap<String,String> user);
+    Call<Respuesta> Register (@Body HashMap<String,String> user);
 
     @Headers({"Content-Type: application/json", "Accept: */*"})
     @POST("login")
-    Call<Respuesta_Login> doLogin (@Body HashMap<String,String> user);
+    Call<Respuesta> doLogin (@Body HashMap<String,String> user);
 
     @Headers({"Content-Type: application/json", "Accept: */*"})
-    @GET("comerces")
-    Call<ListShops> getShops (@Header("Authorization") String authKey);
+    @GET("commerces")
+    Call<Respuesta_Library> getShops (@Header("Authorization") String authKey);
 }

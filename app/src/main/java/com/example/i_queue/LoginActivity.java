@@ -6,15 +6,17 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.i_queue.models.Respuesta_Login;
+import com.example.i_queue.models.Respuesta;
+import com.example.i_queue.models.User_Login;
 import com.example.i_queue.webservice.WebServiceClient;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.regex.Pattern;
@@ -84,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
         return pattern.matcher(email).matches();
     }
 
-    private void Login(String email, String password){
+    private void Login(String email, String password) {
         loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
 
@@ -101,35 +103,57 @@ public class LoginActivity extends AppCompatActivity {
         hashMap.put("email", email);
         hashMap.put("password", password);
 
-        Call<Respuesta_Login> llamada = client.doLogin(hashMap);
-        llamada.enqueue(new Callback<Respuesta_Login>() {
+        Call<Respuesta> llamada = client.doLogin(hashMap);
+        llamada.enqueue(new Callback<Respuesta>() {
             @Override
-            public void onResponse(Call<Respuesta_Login> call, Response<Respuesta_Login> response) {
-                Respuesta_Login respuestaLogin = response.body();
-                if(respuestaLogin != null){
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                Respuesta respuesta = response.body();
+
+                if(respuesta != null){
                     if(response.isSuccessful()){
-                        String status = respuestaLogin.getStatus();
-                        if(status.equals("success")){
+                        int code = respuesta.getCode();
+                        if(code == 200){
                             Toast.makeText(LoginActivity.this, "Has entrado", Toast.LENGTH_SHORT).show();
-                            token = respuestaLogin.getToken();
+                            JsonObject data = respuesta.getData();
+                            Gson gson = new Gson();
+                            User_Login user = gson.fromJson(data,User_Login.class);
+                            token = user.getToken();
                             SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
                             editor.putString("token", token);
                             editor.apply();
                             Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
                             LoginActivity.this.startActivity(myIntent);
                         }else{
-                            String respuesta = respuestaLogin.getMessage();
-                            Toast.makeText(LoginActivity.this, respuesta, Toast.LENGTH_SHORT).show();
+                           Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<Respuesta_Login> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Respuesta> call, Throwable t) {
 
             }
         });
+
     }
 }
+
+//    Respuesta_Login respuestaLogin = response.body();
+//                if(respuestaLogin != null){
+//                    if(response.isSuccessful()){
+//                        String status = respuestaLogin.getStatus();
+//                        if(status.equals("success")){
+//                            Toast.makeText(LoginActivity.this, "Has entrado", Toast.LENGTH_SHORT).show();
+//                            token = respuestaLogin.getToken();
+//                            SharedPreferences.Editor editor = getSharedPreferences("prefs", MODE_PRIVATE).edit();
+//                            editor.putString("token", token);
+//                            editor.apply();
+//                            Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
+//                            LoginActivity.this.startActivity(myIntent);
+//                        }else{
+//                            String respuesta = respuestaLogin.getMessage();
+//                            Toast.makeText(LoginActivity.this, respuesta, Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                }

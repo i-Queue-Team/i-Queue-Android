@@ -3,21 +3,17 @@ package com.example.i_queue;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.i_queue.models.Commerces;
-import com.example.i_queue.models.ListShops;
+import com.example.i_queue.models.Data;
+import com.example.i_queue.models.Respuesta_Library;
 import com.example.i_queue.webservice.WebServiceClient;
 
 import java.util.ArrayList;
@@ -37,7 +33,7 @@ public class Fragment_library extends Fragment {
 
     private RecyclerView recyclerView;
     private Adapter_Library adapter;
-    private List<Commerces> comercesList;
+    private List<Data> comercesList;
     private Retrofit retrofit;
     private HttpLoggingInterceptor loggingInterceptor;
     private OkHttpClient.Builder httpClientBuilder;
@@ -55,10 +51,10 @@ public class Fragment_library extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new Adapter_Library(comercesList, getActivity(), new Adapter_Library.OnItemClickListener() {
             @Override
-            public void onItemClick(Commerces commerces) {
+            public void onItemClick(Data data) {
                 Intent intent = new Intent(getActivity(), StoreActivity.class);
                 Bundle extras = new Bundle();
-                extras.putString("name", commerces.getName());
+                extras.putString("name", data.getName());
                 intent.putExtras(extras);
                 startActivityForResult(intent, 1);
             }
@@ -78,28 +74,26 @@ public class Fragment_library extends Fragment {
                 .client(httpClientBuilder.build())
                 .build();
         WebServiceClient client = retrofit.create(WebServiceClient.class);
-        Call<ListShops> llamada = client.getShops(token);
-        llamada.enqueue(new Callback<ListShops>() {
+        Call<Respuesta_Library> llamada = client.getShops(token);
+        llamada.enqueue(new Callback<Respuesta_Library>() {
             @Override
-            public void onResponse(Call<ListShops> call, Response<ListShops> response) {
+            public void onResponse(Call<Respuesta_Library> call, Response<Respuesta_Library> response) {
                 if(response.isSuccessful()){
-                    ListShops respuesta = response.body();
-                    if(respuesta.getStatus().equals("Success")){
-                        comercesList = respuesta.getCommerces();
+                    Respuesta_Library respuesta = response.body();
+                    int code = respuesta.getCode();
+                    if(code == 200){
+                        comercesList = respuesta.getData();
                         adapter.setComercesList(comercesList);
                     }else{
                         Toast.makeText(getActivity(), "Hubo un error", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
 
             @Override
-            public void onFailure(Call<ListShops> call, Throwable t) {
-
+            public void onFailure(Call<Respuesta_Library> call, Throwable t) {
+                Toast.makeText(getActivity(), "Hubo un error", Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 }

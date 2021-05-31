@@ -9,24 +9,23 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.i_queue.models.Commerces;
-import com.example.i_queue.models.ListShops;
+import com.example.i_queue.models.Data;
 
 import java.util.List;
 
 
 public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.LibraryHolder> {
 
-    private List<Commerces> commerces;
+    private List<Data> commerce;
     private Context context;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Commerces item);
+        void onItemClick(Data item);
     }
 
-    public Adapter_Library(List<Commerces> commerces, Context context, OnItemClickListener listener) {
-        this.commerces = commerces;
+    public Adapter_Library(List<Data> commerce, Context context, OnItemClickListener listener) {
+        this.commerce = commerce;
         this.context = context;
         this.listener = listener;
     }
@@ -40,7 +39,7 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
 
     @Override
     public void onBindViewHolder(LibraryHolder holder, int position) {
-        Commerces commerce = commerces.get(position);
+        Data commerce = this.commerce.get(position);
         holder.id.setText(String.valueOf(commerce.getId()));
         holder.name.setText(commerce.getName());
         holder.pulsar.setOnClickListener(new View.OnClickListener() {
@@ -53,11 +52,11 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
 
     @Override
     public int getItemCount() {
-            return commerces.size();
+            return commerce.size();
     }
 
-    public void setComercesList(List<Commerces> comerces){
-        this.commerces = comerces;
+    public void setComercesList(List<Data> comerces){
+        this.commerce = comerces;
         notifyDataSetChanged();
     }
 

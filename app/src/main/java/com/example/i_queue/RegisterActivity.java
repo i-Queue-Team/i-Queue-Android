@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.i_queue.models.Respuesta_Login;
+import com.example.i_queue.models.Respuesta;
 import com.example.i_queue.webservice.WebServiceClient;
 
 import java.util.HashMap;
@@ -110,26 +110,25 @@ public class RegisterActivity extends AppCompatActivity {
         hashMap.put("password", password);
 
 
-        Call<Respuesta_Login> llamada = client.Register(hashMap);
-        llamada.enqueue(new Callback<Respuesta_Login>() {
+        Call<Respuesta> llamada = client.Register(hashMap);
+        llamada.enqueue(new Callback<Respuesta>() {
             @Override
-            public void onResponse(Call<Respuesta_Login> call, Response<Respuesta_Login> response) {
-                Respuesta_Login respuestaLogin = response.body();
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                Respuesta respuesta = response.body();
+                if(respuesta != null){
                     if(response.isSuccessful()){
-                        String status = respuestaLogin.getStatus();
-                        if(status.equals("success")){
-                            Toast.makeText(RegisterActivity.this, "Te has registrado correctamente", Toast.LENGTH_SHORT).show();
+                        int code = respuesta.getCode();
+                        if(code == 200){
+                            Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
                             finish();
-                        }else{
-                            String email = respuestaLogin.getValidator_errors().getEmail();
-                            Toast.makeText(RegisterActivity.this, email, Toast.LENGTH_SHORT).show();
                         }
                     }
+                }
             }
 
             @Override
-            public void onFailure(Call<Respuesta_Login> call, Throwable t) {
-                Toast.makeText(RegisterActivity.this, "Error", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+
             }
         });
 
