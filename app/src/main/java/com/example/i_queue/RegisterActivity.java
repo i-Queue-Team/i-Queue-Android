@@ -11,10 +11,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.i_queue.models.Data;
 import com.example.i_queue.models.Respuesta;
 import com.example.i_queue.webservice.WebServiceClient;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import okhttp3.OkHttpClient;
@@ -73,7 +75,18 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if(!pass_text.equals(confirm_pass_text)){
                     Toast.makeText(RegisterActivity.this, "Las contraseñas introducidas no son las mismas, por favor introduzca las mismas para continuar", Toast.LENGTH_SHORT).show();
                 }else{
-                    Register(user_text,email_text,pass_text);
+                    Register(user_text, email_text, pass_text, new Async() {
+                        @Override
+                        public void response(Respuesta respuesta) {
+                            if(respuesta != null){
+                                    int code = respuesta.getCode();
+                                    if(code == 200){
+                                        Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
+                                        finish();
+                                    }
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -86,12 +99,16 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    private interface Async{
+        void response(Respuesta respuesta);
+    }
+
     private boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();
     }
 
-    private void Register(String user , String email , String password){
+    private void Register(String user , String email , String password, Async callback){
         loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
 
@@ -115,15 +132,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
                 Respuesta respuesta = response.body();
-                if(respuesta != null){
-                    if(response.isSuccessful()){
-                        int code = respuesta.getCode();
-                        if(code == 200){
-                            Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                    }
+                if(response.isSuccessful()){
+                    callback.response(respuesta);
+                }else{
+                    Toast.makeText(RegisterActivity.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
             @Override

@@ -2,12 +2,12 @@ package com.example.i_queue.models;
 
 public class User_Login {
     private int id;
-    private String name, emial, email_verified_at, role, created_at, updated_at, token;
+    private String name, email, email_verified_at, role, created_at, updated_at, token;
 
-    public User_Login(int id, String name, String emial, String email_verified_at, String role, String created_at, String updated_at, String token) {
+    public User_Login(int id, String name, String email, String email_verified_at, String role, String created_at, String updated_at, String token) {
         this.id = id;
         this.name = name;
-        this.emial = emial;
+        this.email = email;
         this.email_verified_at = email_verified_at;
         this.role = role;
         this.created_at = created_at;
@@ -31,12 +31,12 @@ public class User_Login {
         this.name = name;
     }
 
-    public String getEmial() {
-        return emial;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmial(String emial) {
-        this.emial = emial;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getEmail_verified_at() {

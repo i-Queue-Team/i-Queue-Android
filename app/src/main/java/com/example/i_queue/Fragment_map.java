@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.i_queue.models.Data;
+import com.example.i_queue.models.Respuesta;
 import com.example.i_queue.models.Respuesta_Library;
 import com.example.i_queue.webservice.WebServiceClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -47,10 +49,13 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
     private String token;
 
     @Override
-    public void onActivityCreated(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
 
+    }
+    private interface Async{
+        void response(List<Data> respuesta);
     }
 
     @Override
@@ -71,27 +76,10 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
 
         UiSettings uiSettings = map.getUiSettings();
         uiSettings.setCompassEnabled(true);
-        uiSettings.setZoomControlsEnabled(true);
 
-        lanzarPeticion("Bearer " + token);
-    }
-
-    private void lanzarPeticion(String token){
-        loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
-        httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(WebServiceClient.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(httpClientBuilder.build())
-                .build();
-        WebServiceClient client = retrofit.create(WebServiceClient.class);
-        Call<Respuesta_Library> llamada = client.getShops(token);
-
-        llamada.enqueue(new Callback<Respuesta_Library>() {
+        lanzarPeticion("Bearer " + token, new Async() {
             @Override
-            public void onResponse(Call<Respuesta_Library> call, Response<Respuesta_Library> response) {
-                dataList = response.body().getData();
+            public void response(List<Data> respuesta) {
 
                 for(int i = 0; i < dataList.size(); i++){
                     Data data = dataList.get(i);
@@ -125,6 +113,31 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                         map.animateCamera(CameraUpdateFactory.newLatLngZoom(linares, 14));
                     }
                 });
+            }
+        });
+    }
+
+    private void lanzarPeticion(String token, Async callback){
+        loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(WebServiceClient.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClientBuilder.build())
+                .build();
+        WebServiceClient client = retrofit.create(WebServiceClient.class);
+        Call<Respuesta_Library> llamada = client.getShops(token);
+
+        llamada.enqueue(new Callback<Respuesta_Library>() {
+            @Override
+            public void onResponse(Call<Respuesta_Library> call, Response<Respuesta_Library> response) {
+                dataList = response.body().getData();
+                if(response.isSuccessful()){
+                    callback.response(dataList);
+                }else{
+                    Toast.makeText(getActivity(), "El mapa falló", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

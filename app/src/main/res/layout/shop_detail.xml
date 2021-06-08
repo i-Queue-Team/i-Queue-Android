@@ -1,60 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pulsar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="#00000000"
-    android:gravity="center">
+    android:layout_margin="5dp"
+    android:background="#00bfa5"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/name_shop_detail_list"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginRight="50dp"
-        android:gravity="center"
-        android:paddingLeft="10dp">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Telepizza"
+        android:textColor="#000000"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="Nª"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/number_detail_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="#FFFFFF" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre: "
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/name_shop_detail_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="50dp"
-            android:gravity="center"
-            android:text="Telepizza"
-            android:textColor="#FFFFFF" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/image_shop"
+        android:layout_width="292dp"
+        android:layout_height="176dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/comercio" />
 
 </LinearLayout>

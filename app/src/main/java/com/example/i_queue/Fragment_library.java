@@ -47,18 +47,9 @@ public class Fragment_library extends Fragment {
         View view = inflater.inflate(R.layout.frag_library, container, false);
         comercesList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerview_library);
-        layoutManager = new GridLayoutManager(getActivity(), 1);
+        layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new Adapter_Library(comercesList, getActivity(), new Adapter_Library.OnItemClickListener() {
-            @Override
-            public void onItemClick(Data data) {
-                Intent intent = new Intent(getActivity(), StoreActivity.class);
-                Bundle extras = new Bundle();
-                extras.putString("name", data.getName());
-                intent.putExtras(extras);
-                startActivityForResult(intent, 1);
-            }
-        });
+        adapter = new Adapter_Library(comercesList, getActivity());
         recyclerView.setAdapter(adapter);
         lanzarPeticion("Bearer "+token);
         return view;

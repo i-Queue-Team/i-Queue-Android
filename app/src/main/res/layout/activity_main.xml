@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#004D40"
-    android:orientation="vertical"
-    >
+    android:background="#FFFFFF"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -21,8 +20,16 @@
         android:layout_width="250dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="35dp"
         app:srcCompat="@drawable/propuestalogo" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:visibility="gone" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -30,10 +37,10 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:background="#004D40"
-        android:backgroundTint="#004D40"
+        android:background="#00bfa5"
+        android:backgroundTint="#00bfa5"
         android:textColorHint="#BFFFFFFF"
-        app:hintTextColor="#FAF7F7">
+        app:hintTextColor="#FFFFFF">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email_log"
@@ -43,19 +50,21 @@
             android:backgroundTint="#00000000"
             android:hint="Email"
             android:inputType="textEmailAddress"
-            android:textColor="#E6DDDD"
+            android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/pass_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:background="#004D40"
-        android:backgroundTint="#004D40"
+        android:background="#00bfa5"
+        android:backgroundTint="#00bfa5"
         android:textColorHint="#BFFFFFFF"
+        android:visibility="visible"
         app:hintTextColor="#FAF7F7"
         app:passwordToggleEnabled="true">
 
@@ -67,12 +76,12 @@
             android:backgroundTint="#00000000"
             android:hint="Password"
             android:password="true"
-            android:textColor="#E6DDDD"
+            android:textColor="#FFFFFF"
             android:textColorHint="#FFFFFF" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/olvida"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -81,12 +90,13 @@
         android:layout_marginBottom="25dp"
         android:gravity="right"
         android:text="¿Has olvidado la contraseña?"
-        android:textColor="#FFFFFF" />
+        android:textColor="#000000" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingTop="50dp">
 
         <Button
             android:id="@+id/register_login"

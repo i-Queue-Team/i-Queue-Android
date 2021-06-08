@@ -4,16 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Data implements Parcelable {
+
     private int id, user_id;
-    private String name, created_at, updated_at;
+    private String name, created_at, updated_at, info, image;
     private Double latitude, longitude;
 
-    public Data(int id, int user_id, String name, String created_at, String updated_at, Double latitude, Double longitude) {
+    public Data(int id, int user_id, String name, String created_at, String updated_at, String info, String image, Double latitude, Double longitude) {
         this.id = id;
         this.user_id = user_id;
         this.name = name;
         this.created_at = created_at;
         this.updated_at = updated_at;
+        this.info = info;
+        this.image = image;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -24,6 +27,8 @@ public class Data implements Parcelable {
         name = in.readString();
         created_at = in.readString();
         updated_at = in.readString();
+        info = in.readString();
+        image = in.readString();
         if (in.readByte() == 0) {
             latitude = null;
         } else {
@@ -88,6 +93,22 @@ public class Data implements Parcelable {
         this.updated_at = updated_at;
     }
 
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Double getLatitude() {
         return latitude;
     }
@@ -111,12 +132,13 @@ public class Data implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
         dest.writeInt(id);
         dest.writeInt(user_id);
         dest.writeString(name);
         dest.writeString(created_at);
         dest.writeString(updated_at);
+        dest.writeString(info);
+        dest.writeString(image);
         if (latitude == null) {
             dest.writeByte((byte) 0);
         } else {

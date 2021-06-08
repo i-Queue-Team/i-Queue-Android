@@ -1,13 +1,16 @@
 package com.example.i_queue;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,15 +20,35 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.i_queue.models.Respuesta;
+import com.example.i_queue.webservice.WebServiceClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainPageActivity extends AppCompatActivity {
 
     private ImageView settings;
     private FloatingActionButton qr_button;
+    private Retrofit retrofit;
+    private String token, password_verification, queue_id;
+    private HttpLoggingInterceptor loggingInterceptor;
+    private OkHttpClient.Builder httpClientBuilder;
+    private Queue_Adapter adapter;
+    private Respuesta respuesta;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +56,10 @@ public class MainPageActivity extends AppCompatActivity {
         setContentView(R.layout.mainpage_layout);
         settings = findViewById(R.id.settings);
         qr_button = findViewById(R.id.qr);
-
+        
+        SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        token = preferences.getString("token", "");
+        
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,9 +85,17 @@ public class MainPageActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String qrCode = intent.getStringExtra("readedData");
         if(qrCode != null){
-
+            JSONObject reader;
+            try {
+                reader = new JSONObject(qrCode);
+                Log.d("reader", reader.getString("commerce_id"));
+                password_verification = reader.getString("password_verification");
+                queue_id = reader.getString("commerce_id");
+                lanzarPeticion("Bearer " + token, "12345", queue_id);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -81,6 +115,40 @@ public class MainPageActivity extends AppCompatActivity {
 
     }
 
+    private void lanzarPeticion(String token , String password_verification , String queue_id){
+        loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(WebServiceClient.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClientBuilder.build())
+                .build();
+        WebServiceClient client = retrofit.create(WebServiceClient.class);
+
+        HashMap<String, String> hashMap = new HashMap<>();
+
+        hashMap.put("password_verification", password_verification);
+        hashMap.put("queue_id", queue_id);
+
+        Call<Respuesta> llamada = client.enterQueue(token, hashMap);
+        llamada.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+               if(response.isSuccessful()){
+                   respuesta = response.body();
+                   recreate();
+               }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+
+            }
+        });
+
+    }
+
     private void navigateToFragment(int itemId){
 
         Fragment fragment;
@@ -90,7 +158,7 @@ public class MainPageActivity extends AppCompatActivity {
         switch (itemId){
             default:
                 setTitle("Queue");
-                fragment = new Fragment_queue();
+                fragment = new Fragment_library();
                 break;
             case R.id.Queue:
                 setTitle("Queue");

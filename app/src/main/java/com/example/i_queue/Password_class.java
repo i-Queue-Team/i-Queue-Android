@@ -12,17 +12,14 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.example.i_queue.models.Respuesta;
 import com.example.i_queue.webservice.WebServiceClient;
 
 import java.util.HashMap;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,6 +30,7 @@ public class Password_class extends AppCompatActivity {
     private Button change, cancelar;
     private Retrofit retrofit;
     private HttpLoggingInterceptor loggingInterceptor;
+    private Toolbar pass_tool;
     private OkHttpClient.Builder httpClientBuilder;
 
     @Override
@@ -45,8 +43,13 @@ public class Password_class extends AppCompatActivity {
         repeat_pass_field = findViewById(R.id.repeat_pass);
         change = findViewById(R.id.change);
         cancelar = findViewById(R.id.cancelar_pass);
+        pass_tool = findViewById(R.id.toolbar_newpass);
         SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
+
+        pass_tool.setTitle("Cambio de contraseña");
+        setSupportActionBar(pass_tool);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         change.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +98,13 @@ public class Password_class extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+
     }
 
     private void lanzarPeticion(String token, String old_pass, String new_pass, String verify_pass){
