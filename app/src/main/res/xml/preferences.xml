@@ -1,16 +1,14 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFFFFF">
     <PreferenceScreen
-        android:key="pref_open_service_key1"
-        android:title="Cambiar contraseña"></PreferenceScreen>
-    <PreferenceScreen
-        android:key="pref_open_service_key2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:key="pref_open_service_key2"
         android:title="Eliminar cuenta"></PreferenceScreen>
     <PreferenceScreen
-        android:key="pref_open_service_key3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:key="pref_open_service_key3"
         android:title="Cerrar sesión"></PreferenceScreen>
 </PreferenceScreen>

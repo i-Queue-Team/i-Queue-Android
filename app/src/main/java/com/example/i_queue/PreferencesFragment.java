@@ -41,16 +41,6 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
         id_user = preferences.getInt("id_user", 0);
         token = preferences.getString("token", "");
 
-        Preference myPref = (Preference) findPreference("pref_open_service_key1");
-        myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-            @Override
-            public boolean onPreferenceClick(Preference preference) {
-                Intent intent = new Intent(getActivity(), Password_class.class);
-                startActivity(intent);
-                return false;
-            }
-        });
-
         Preference myPref2 = (Preference) findPreference("pref_open_service_key2");
         myPref2.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override

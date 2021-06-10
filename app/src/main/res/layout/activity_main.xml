@@ -20,7 +20,7 @@
         android:layout_width="250dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="75dp"
         app:srcCompat="@drawable/propuestalogo" />
 
     <ProgressBar
@@ -32,13 +32,13 @@
         android:visibility="gone" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/ter1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="25dp"
         android:background="#00bfa5"
-        android:backgroundTint="#00bfa5"
         android:textColorHint="#BFFFFFFF"
         app:hintTextColor="#FFFFFF">
 
@@ -46,7 +46,6 @@
             android:id="@+id/email_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#004D40"
             android:backgroundTint="#00000000"
             android:hint="Email"
             android:inputType="textEmailAddress"
@@ -55,14 +54,13 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/pass_input"
+        android:id="@+id/ter2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="35dp"
         android:layout_marginEnd="25dp"
         android:background="#00bfa5"
-        android:backgroundTint="#00bfa5"
         android:textColorHint="#BFFFFFFF"
         android:visibility="visible"
         app:hintTextColor="#FAF7F7"
@@ -72,7 +70,6 @@
             android:id="@+id/password_log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#004D40"
             android:backgroundTint="#00000000"
             android:hint="Password"
             android:password="true"
@@ -85,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="25dp"
         android:gravity="right"
@@ -96,7 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:paddingTop="50dp">
+        android:paddingTop="75dp">
 
         <Button
             android:id="@+id/register_login"

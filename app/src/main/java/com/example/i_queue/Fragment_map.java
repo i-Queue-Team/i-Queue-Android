@@ -101,6 +101,11 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                                 Toast.makeText(getActivity(), data.getName(), Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getActivity(), StoreActivity.class);
                                 intent.putExtra("name", data.getName());
+                                intent.putExtra("name", data.getName());
+                                intent.putExtra("description", data.getInfo());
+                                intent.putExtra("image", data.getImage());
+                                intent.putExtra("latitude", data.getLatitude().toString());
+                                intent.putExtra("longitude", data.getLongitude().toString());
                                 startActivity(intent);
                             }
                         }

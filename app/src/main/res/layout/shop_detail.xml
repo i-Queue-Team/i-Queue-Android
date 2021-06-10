@@ -8,6 +8,7 @@
     android:layout_gravity="center"
     android:layout_margin="5dp"
     android:background="#00bfa5"
+    android:gravity="center"
     android:orientation="vertical">
 
     <TextView
@@ -15,14 +16,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
         android:text="Telepizza"
-        android:textColor="#000000"
-        android:textSize="16sp" />
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/image_shop"
-        android:layout_width="292dp"
-        android:layout_height="176dp"
+        android:layout_width="350dp"
+        android:layout_height="190dp"
         android:layout_gravity="center"
         app:srcCompat="@drawable/comercio" />
 

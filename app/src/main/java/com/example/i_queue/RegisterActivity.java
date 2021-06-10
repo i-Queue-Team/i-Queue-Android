@@ -1,5 +1,6 @@
 package com.example.i_queue;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,12 +12,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.i_queue.models.Data;
 import com.example.i_queue.models.Respuesta;
 import com.example.i_queue.webservice.WebServiceClient;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import okhttp3.OkHttpClient;
@@ -42,9 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.register_activity);
         setTitle("Registro de i-Queue");
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar_2);
         setSupportActionBar(toolbar);
-
+        toolbar.setTitleTextColor(Color.parseColor("white"));
         user_editext = findViewById(R.id.user);
         email_editext = findViewById(R.id.email);
         pass_editext = findViewById(R.id.password);

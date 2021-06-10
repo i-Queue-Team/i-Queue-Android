@@ -3,44 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#004D40"
-    android:orientation="vertical"
-    >
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Registrate en nuestra plataforma de forma gratuita"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="150dp"
-            android:layout_height="75dp"
-            android:layout_gravity="end"
-            app:srcCompat="@drawable/propuestalogo" />
-    </LinearLayout>
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="Registrate en nuestra plataforma de forma gratuita"
+        android:textColor="#00bfa5"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -48,17 +33,15 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
-        android:background="#004D40"
-        android:backgroundTint="#004D40"
-        android:textColorHint="#BFFFFFFF"
-        app:hintTextColor="#FAF7F7">
+        android:padding="10dp"
+        android:textColorHint="#BFFFFFFF">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#004D40"
-            android:backgroundTint="#00000000"
+            android:background="#00bfa5"
+            android:backgroundTint="#00bfa5"
             android:hint="User"
             android:textColor="#E6DDDD"
             android:textColorHint="#FFFFFF" />
@@ -70,8 +53,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
-        android:background="#004D40"
-        android:backgroundTint="#004D40"
+        android:padding="10dp"
         android:textColorHint="#BFFFFFFF"
         app:hintTextColor="#FAF7F7">
 
@@ -79,8 +61,8 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#004D40"
-            android:backgroundTint="#00000000"
+            android:background="#00bfa5"
+            android:backgroundTint="#00bfa5"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:textColor="#E6DDDD"
@@ -93,8 +75,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
-        android:background="#004D40"
-        android:backgroundTint="#004D40"
+        android:padding="10dp"
         android:textColorHint="#BFFFFFFF"
         app:hintTextColor="#FAF7F7"
         app:passwordToggleEnabled="true">
@@ -103,8 +84,8 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#004D40"
-            android:backgroundTint="#00000000"
+            android:background="@color/white"
+            android:backgroundTint="#00bfa5"
             android:hint="Password"
             android:password="true"
             android:textColor="#E6DDDD"
@@ -117,8 +98,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
-        android:background="#004D40"
-        android:backgroundTint="#004D40"
+        android:padding="10dp"
         android:textColorHint="#BFFFFFFF"
         app:hintTextColor="#FAF7F7"
         app:passwordToggleEnabled="true">
@@ -128,7 +108,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#004D40"
-            android:backgroundTint="#00000000"
+            android:backgroundTint="#00bfa5"
             android:hint="Confirm Password"
             android:password="true"
             android:textColor="#E6DDDD"
@@ -138,16 +118,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="45dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="125dp"
+        android:orientation="horizontal"
+        android:padding="25dp">
 
         <Button
             android:id="@+id/register_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:text="Cancelar" />
 
@@ -155,10 +134,17 @@
             android:id="@+id/login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="Registrarse" />
+
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="220dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/propuestalogo" />
 
 </LinearLayout>

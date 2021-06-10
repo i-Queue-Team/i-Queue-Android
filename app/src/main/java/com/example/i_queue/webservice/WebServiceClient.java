@@ -47,4 +47,8 @@ public interface WebServiceClient {
     @DELETE("queue-verified-users/{id}")
     Call<Respuesta> deleteQueue (@Header("Authorization") String authKey, @Path("id") String id);
 
+    @Headers({"Content-Type: application/json", "Accept: */*"})
+    @POST("forgot-password")
+    Call<Respuesta> forgottenPassword (@Body HashMap<String,String> email);
+
 }

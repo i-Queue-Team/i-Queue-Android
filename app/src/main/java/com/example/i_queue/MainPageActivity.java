@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -29,7 +29,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -56,7 +55,9 @@ public class MainPageActivity extends AppCompatActivity {
         setContentView(R.layout.mainpage_layout);
         settings = findViewById(R.id.settings);
         qr_button = findViewById(R.id.qr);
-        
+        Toolbar toolbar = findViewById(R.id.toolbar_2);
+        setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(Color.parseColor("white"));
         SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
         
@@ -96,9 +97,6 @@ public class MainPageActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
 
