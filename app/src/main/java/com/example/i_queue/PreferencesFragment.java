@@ -75,14 +75,14 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
                 editor.apply();
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Cerrar sesón");
+                builder.setTitle("Cerrar sesión");
                 builder.setMessage("¿Seguro que desea cerrar sesión?");
 
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent intent = new Intent(getActivity(), LoginActivity.class);
-                        startActivity(intent);
+                        startActivity(new Intent(getContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+                        getActivity().finish();
                     }
                 });
 

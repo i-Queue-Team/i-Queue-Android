@@ -63,7 +63,9 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Introduce un Usuario para poder continuar", Toast.LENGTH_SHORT).show();
                 }else if(user_text.length() < 5){
                     Toast.makeText(RegisterActivity.this, "Introduce un usuario con mas de 4 caracteres", Toast.LENGTH_SHORT).show();
-                }else if (!validarEmail(email_text)){
+                }else if(email_text.isEmpty()){
+                    Toast.makeText(RegisterActivity.this, "Introduce un email para continuar", Toast.LENGTH_SHORT).show();
+                }else if(!validarEmail(email_text)){
                     Toast.makeText(RegisterActivity.this, "Introduce un email valido para continuar", Toast.LENGTH_SHORT).show();
                 }else if(pass_text.isEmpty()){
                     Toast.makeText(RegisterActivity.this, "Introduce una contraseña para continuar", Toast.LENGTH_SHORT).show();

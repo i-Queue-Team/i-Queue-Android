@@ -194,42 +194,57 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         if(!sharedPreferences.getString("user_login", "").equals("")){
-            String email_guardado = sharedPreferences.getString("user_login", "");
-            String pass_guardado = sharedPreferences.getString("user_pass", "");
-            email_field.setVisibility(View.GONE);
-            ter1.setVisibility(View.GONE);
-            register_login.setVisibility(View.GONE);
-            olvida.setVisibility(View.GONE);
-            ter2.setVisibility(View.GONE);
-            login.setVisibility(View.GONE);
-            showProgressBar(true);
-            Login(email_guardado, pass_guardado,remember_token ,new Async() {
-                @Override
-                public void response(Respuesta respuesta) {
-                    if(respuesta != null){
-                        int code = respuesta.getCode();
-                        if(code == 200){
-                            JsonObject data = respuesta.getData();
-                            Gson gson = new Gson();
-                            User_Login user = gson.fromJson(data,User_Login.class);
-                            token = user.getToken();
-                            id_user = user.getId();
-                            editor.putString("token", token);
-                            editor.putInt("id_user", id_user);
-                            editor.apply();
-                            Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
-                            LoginActivity.this.startActivity(myIntent);
-                            showProgressBar(false);
-                            finish();
-                        }else{
-                            Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+
+            FirebaseMessaging.getInstance().getToken()
+                    .addOnCompleteListener(new OnCompleteListener<String>() {
+                        @Override
+                        public void onComplete(@NonNull Task<String> task) {
+                            if (!task.isSuccessful()) {
+                                Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                                return;
+                            }
+                            // Get new FCM registration token
+                            token = task.getResult();
+                            remember_token = token;
+                            // Log and toast
+                            Log.d("TAG", token);
+
+                            String email_guardado = sharedPreferences.getString("user_login", "");
+                            String pass_guardado = sharedPreferences.getString("user_pass", "");
+                            email_field.setVisibility(View.GONE);
+                            ter1.setVisibility(View.GONE);
+                            register_login.setVisibility(View.GONE);
+                            olvida.setVisibility(View.GONE);
+                            ter2.setVisibility(View.GONE);
+                            login.setVisibility(View.GONE);
+                            showProgressBar(true);
+                            Login(email_guardado, pass_guardado,remember_token ,new Async() {
+                                @Override
+                                public void response(Respuesta respuesta) {
+                                    if(respuesta != null){
+                                        int code = respuesta.getCode();
+                                        if(code == 200){
+                                            JsonObject data = respuesta.getData();
+                                            Gson gson = new Gson();
+                                            User_Login user = gson.fromJson(data,User_Login.class);
+                                            token = user.getToken();
+                                            id_user = user.getId();
+                                            editor.putString("token", token);
+                                            editor.putInt("id_user", id_user);
+                                            editor.apply();
+                                            Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
+                                            LoginActivity.this.startActivity(myIntent);
+                                            showProgressBar(false);
+                                            finish();
+                                        }else{
+                                            Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            });
                         }
-                    }
-                }
-            });
+                    });
         }
-
-
     }
 
     private boolean validarEmail(String email) {
@@ -313,9 +328,7 @@ public class LoginActivity extends AppCompatActivity {
     private interface Async{
         void response(Respuesta respuesta);
     }
-
-
-
+    
 //    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
 //                builder.setTitle("Introduce tu correo electronico");
 //                builder.setMessage("Se enviará un correo de recuperacion a su email (Checkea el Spam)");
