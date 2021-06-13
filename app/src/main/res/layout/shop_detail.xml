@@ -1,32 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/pulsar"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_margin="5dp"
-    android:background="#00bfa5"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_margin="20dp"
+    android:background="@drawable/bordes">
+
+    <ImageButton
+        android:id="@+id/image_shop"
+        android:layout_width="326dp"
+        android:layout_height="181dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bordes"
+        android:cropToPadding="false"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/address_detail"
+        app:srcCompat="@drawable/comercio" />
 
     <TextView
         android:id="@+id/name_shop_detail_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="Telepizza"
+        android:textColor="#26a69a"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/address_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:text="Telepizza"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="8dp"
+        android:text="Address"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/image_shop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name_shop_detail_list" />
 
-    <ImageView
-        android:id="@+id/image_shop"
-        android:layout_width="350dp"
-        android:layout_height="190dp"
-        android:layout_gravity="center"
-        app:srcCompat="@drawable/comercio" />
+    <TextView
+        android:id="@+id/description_detail"
+        android:layout_width="330dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:maxLines="3"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_shop" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

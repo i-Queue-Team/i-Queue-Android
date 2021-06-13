@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register_activity);
-        setTitle("Registro de i-Queue");
+        setTitle("Registro Gratuito en i-Queue");
 
         Toolbar toolbar = findViewById(R.id.toolbar_2);
         setSupportActionBar(toolbar);

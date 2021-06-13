@@ -2,18 +2,22 @@ package com.example.i_queue;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -29,6 +33,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -60,7 +66,7 @@ public class MainPageActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("white"));
         SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
-        
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +82,9 @@ public class MainPageActivity extends AppCompatActivity {
                 if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);
                 } else {
+                    finish();
                     Intent myIntent = new Intent(MainPageActivity.this, QrCodeScanner.class);
                     MainPageActivity.this.startActivity(myIntent);
-                    finish();
                 }
             }
         });
@@ -92,7 +98,8 @@ public class MainPageActivity extends AppCompatActivity {
                 Log.d("reader", reader.getString("commerce_id"));
                 password_verification = reader.getString("password_verification");
                 queue_id = reader.getString("commerce_id");
-                lanzarPeticion("Bearer " + token, "12345", queue_id);
+                lanzarPeticion("Bearer " + token, password_verification, queue_id);
+                qrCode = null;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -135,7 +142,6 @@ public class MainPageActivity extends AppCompatActivity {
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
                if(response.isSuccessful()){
                    respuesta = response.body();
-                   recreate();
                }
             }
 
@@ -147,10 +153,33 @@ public class MainPageActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            cerrarAplicacion();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void cerrarAplicacion() {
+        new AlertDialog.Builder(this)
+                .setIcon(R.drawable.propuestalogo)
+                .setTitle("¿Realmente desea cerrar la aplicación?")
+                .setCancelable(false)
+                .setNegativeButton("Cancelar", null)
+                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                }).show();
+    }
+
+
     private void navigateToFragment(int itemId){
 
         Fragment fragment;
-
         String title = "i-Queue";
 
         switch (itemId){

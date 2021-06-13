@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_queue"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp">
+    android:layout_height="wrap_content">
 
 
     <com.google.android.material.card.MaterialCardView
@@ -46,6 +45,7 @@
                     android:id="@+id/delete_queue"
                     android:layout_width="121dp"
                     android:layout_height="39dp"
+                    android:layout_marginEnd="16dp"
                     android:text="Borrar Cola"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

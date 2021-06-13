@@ -7,8 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 
+import androidx.core.app.ActivityCompat;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
@@ -32,12 +34,14 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
     private OkHttpClient.Builder httpClientBuilder;
     private int id_user;
     private String token;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         setPreferencesFromResource(R.xml.preferences, rootKey);
-
-        SharedPreferences preferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        preferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        editor = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit();
         id_user = preferences.getInt("id_user", 0);
         token = preferences.getString("token", "");
 
@@ -52,7 +56,9 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        getActivity().onBackPressed();
                         lanzarPeticion("Bearer "+token, String.valueOf(id_user));
+                        ActivityCompat.finishAffinity(getActivity());
                     }
                 });
 
@@ -68,8 +74,6 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
         myPref3.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                SharedPreferences sharedPreferences = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE).edit();
                 editor.putString("user_login" , "");
                 editor.putString("user_pass" , "");
                 editor.apply();
@@ -81,8 +85,9 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(getContext(), LoginActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
-                        getActivity().finish();
+                        getActivity().onBackPressed();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        ActivityCompat.finishAffinity(getActivity());
                     }
                 });
 
@@ -98,8 +103,6 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
     }
 
     private void lanzarPeticion(String token, String user_id){
-
-
         loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
 
@@ -114,9 +117,11 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
         llamada.enqueue(new Callback<Respuesta>() {
             @Override
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
-                Toast.makeText(getActivity(), "El usuario se borro correctamente", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                editor.putString("user_login" , "");
+                editor.putString("user_pass" , "");
+                editor.apply();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                Toast.makeText(getActivity(), "Tu cuenta se ha borrado correctamente", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -124,7 +129,6 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
 
             }
         });
-
     }
 
     @Override
@@ -143,6 +147,8 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
         super.onPause();
         PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
+
+
 
 }
 

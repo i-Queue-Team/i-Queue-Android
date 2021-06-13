@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button login, register_login;
     private ProgressBar progressBar;
     private Retrofit retrofit;
-    private TextView olvida;
+    private TextView olvida, cargando;
     private HttpLoggingInterceptor loggingInterceptor;
     private OkHttpClient.Builder httpClientBuilder;
     private Toolbar toolbar;
@@ -70,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.parseColor("white"));
         setSupportActionBar(toolbar);
         ter2 = findViewById(R.id.ter2);
+        cargando = findViewById(R.id.cargando);
         email_field = findViewById(R.id.email_log);
         progressBar = findViewById(R.id.progressBar);
         olvida = findViewById(R.id.olvida);
@@ -175,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Introduce un email valido", Toast.LENGTH_SHORT).show();
                                 }else{
                                     ForgottenPassword(email_recupera);
-                                    show.dismiss();
+                                    show.cancel();
                                 }
                             }
                         }
@@ -184,7 +185,7 @@ public class LoginActivity extends AppCompatActivity {
                 cancelar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        show.dismiss();
+                        show.cancel();
                     }
                 });
 
@@ -214,6 +215,7 @@ public class LoginActivity extends AppCompatActivity {
                             email_field.setVisibility(View.GONE);
                             ter1.setVisibility(View.GONE);
                             register_login.setVisibility(View.GONE);
+                            cargando.setVisibility(View.VISIBLE);
                             olvida.setVisibility(View.GONE);
                             ter2.setVisibility(View.GONE);
                             login.setVisibility(View.GONE);
@@ -234,7 +236,6 @@ public class LoginActivity extends AppCompatActivity {
                                             editor.apply();
                                             Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
                                             LoginActivity.this.startActivity(myIntent);
-                                            showProgressBar(false);
                                             finish();
                                         }else{
                                             Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
@@ -328,27 +329,4 @@ public class LoginActivity extends AppCompatActivity {
     private interface Async{
         void response(Respuesta respuesta);
     }
-    
-//    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-//                builder.setTitle("Introduce tu correo electronico");
-//                builder.setMessage("Se enviará un correo de recuperacion a su email (Checkea el Spam)");
-//    final TextInputEditText input = new TextInputEditText(LoginActivity.this);
-//                input.setInputType(InputType.TYPE_CLASS_TEXT);
-//                builder.setView(input);
-//
-//                builder.setPositiveButton("Mandar email", new DialogInterface.OnClickListener() {
-//        @Override
-//        public void onClick(DialogInterface dialog, int which) {
-//            String email = input.getText().toString();
-//            ForgottenPassword(email);
-//        }
-//    });
-//
-//                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-//        @Override
-//        public void onClick(DialogInterface dialog, int which) {
-//            dialog.cancel();
-//        }
-//    });
-//                builder.show();
 }

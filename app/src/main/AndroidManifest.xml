@@ -26,9 +26,8 @@
         <activity android:name=".MainPageActivity"></activity>
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".StoreActivity"></activity>
-        <activity android:name=".Settings_class"></activity>
-        <activity android:name=".Password_class"></activity>
         <activity android:name=".QrCodeScanner"></activity>
+        <activity android:name=".Settings_class"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmWJrQnkuarcBfwPDDL92VDpXjaBHajIg"/>
@@ -41,6 +40,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+
     </application>
 
 </manifest>

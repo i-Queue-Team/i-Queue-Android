@@ -74,10 +74,8 @@ public class Queue_Adapter extends RecyclerView.Adapter<Queue_Adapter.QueueHolde
         SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd H:mm:ss");
         try {
             Date date = fmt.parse(queue.get(position).getEstimated_time());
-            Log.d("date" , String.valueOf(date));
             SimpleDateFormat fmtOut = new SimpleDateFormat("H:mm:ss");
-            Log.d("date" , fmtOut.format(date));
-            holder.time_count.setText(fmtOut.format(date));
+            holder.time_count.setText("Hora estimada: " + fmtOut.format(date));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -87,7 +85,8 @@ public class Queue_Adapter extends RecyclerView.Adapter<Queue_Adapter.QueueHolde
             @Override
             public void onClick(View v) {
                 final AlertDialog dialog = new AlertDialog.Builder(context)
-                        .setTitle("¿Desea salir de la cola?")
+                        .setTitle("Salir de la cola de " +  queue.get(position).getName())
+                        .setMessage("¿Está seguro de que quiere salir de la cola de " + queue.get(position).getName() + " ?")
                         .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

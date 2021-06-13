@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -48,12 +49,6 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
     final LatLng linares = new LatLng(38.099922, -3.631077);
     private String token;
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-    }
     private interface Async{
         void response(List<Data> respuesta);
     }
@@ -88,6 +83,8 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                     final LatLng sitio = new LatLng(data.getLatitude(), data.getLongitude());
                     options.position(sitio);
                     options.title(data.getName());
+                    options.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+                    options.snippet("Holas");
                     //options.snippet(data.getDireccion());
                     map.addMarker(options).setTag(i);
                 }
@@ -98,7 +95,6 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                         for(int y = 0; y < dataList.size(); y++){
                             Data data = dataList.get(y);
                             if(marker.getTag().equals(y)){
-                                Toast.makeText(getActivity(), data.getName(), Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getActivity(), StoreActivity.class);
                                 intent.putExtra("name", data.getName());
                                 intent.putExtra("name", data.getName());

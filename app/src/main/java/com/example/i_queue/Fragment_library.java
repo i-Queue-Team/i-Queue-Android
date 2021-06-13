@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.i_queue.models.Data;
+import com.example.i_queue.models.Queue;
 import com.example.i_queue.models.Respuesta_Library;
 import com.example.i_queue.webservice.WebServiceClient;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class Fragment_library extends Fragment {
         View view = inflater.inflate(R.layout.frag_library, container, false);
         comercesList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.recyclerview_library);
-        layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new Adapter_Library(comercesList, getActivity());
         recyclerView.setAdapter(adapter);

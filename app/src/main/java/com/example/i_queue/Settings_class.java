@@ -1,13 +1,15 @@
 package com.example.i_queue;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.Toolbar;
 
 public class Settings_class extends AppCompatActivity {
+
+    private Toolbar store_tool;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -15,10 +17,18 @@ public class Settings_class extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_settings, new PreferencesFragment()).commit();
 
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
+        store_tool = findViewById(R.id.actionbar);
+        setSupportActionBar(store_tool);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Preferencias");
+        store_tool.setTitleTextColor(Color.WHITE);
+        store_tool.setOutlineAmbientShadowColor(Color.WHITE);
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return super.onSupportNavigateUp();
+    }
 }
+
