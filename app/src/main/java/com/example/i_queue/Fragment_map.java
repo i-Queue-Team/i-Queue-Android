@@ -3,17 +3,15 @@ package com.example.i_queue;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.i_queue.models.Data;
-import com.example.i_queue.models.Respuesta;
 import com.example.i_queue.models.Respuesta_Library;
 import com.example.i_queue.webservice.WebServiceClient;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,7 +21,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -48,24 +45,31 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
     private OkHttpClient.Builder httpClientBuilder;
     final LatLng linares = new LatLng(38.099922, -3.631077);
     private String token;
+    private ProgressBar progressBar;
 
     private interface Async{
         void response(List<Data> respuesta);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)          {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.frag_map, container, false);
+
+        progressBar = v.findViewById(R.id.progressBar_map);
+        progressBar.setVisibility(View.VISIBLE);
 
         SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         supportMapFragment.getMapAsync(this);
         SharedPreferences prefs = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
         token = prefs.getString("token", "");
+
         return v;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        progressBar.setVisibility(View.GONE);
+
         map = googleMap;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
@@ -118,7 +122,7 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
         });
     }
 
-    private void lanzarPeticion(String token, Async callback){
+    private void lanzarPeticion(String token, Async callback) {
         loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
         httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
 
@@ -137,13 +141,13 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                 if(response.isSuccessful()){
                     callback.response(dataList);
                 }else{
-                    Toast.makeText(getActivity(), "El mapa falló", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "La carga del Mapa ha fallado", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Respuesta_Library> call, Throwable t) {
-                Toast.makeText(getActivity(), "LA CARGA DEL MAPA HA FALLADO", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "La carga del Mapa ha fallado", Toast.LENGTH_SHORT).show();
             }
         });
 

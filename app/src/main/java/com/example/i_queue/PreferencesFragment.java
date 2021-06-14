@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 
 import androidx.core.app.ActivityCompat;
@@ -126,7 +125,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
-
+                Toast.makeText(getActivity(), "Hubo un fallo al borra el usuario", Toast.LENGTH_SHORT).show();
             }
         });
     }

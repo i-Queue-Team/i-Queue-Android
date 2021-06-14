@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -41,6 +42,7 @@ public class Fragment_library extends Fragment {
     private OkHttpClient.Builder httpClientBuilder;
     private String token;
     private GridLayoutManager layoutManager;
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState){
@@ -48,6 +50,8 @@ public class Fragment_library extends Fragment {
         token = prefs.getString("token", "");
         View view = inflater.inflate(R.layout.frag_library, container, false);
         comercesList = new ArrayList<>();
+        progressBar = view.findViewById(R.id.progressbar_library);
+        progressBar.setVisibility(View.VISIBLE);
         recyclerView = view.findViewById(R.id.recyclerview_library);
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
@@ -72,6 +76,7 @@ public class Fragment_library extends Fragment {
             @Override
             public void onResponse(Call<Respuesta_Library> call, Response<Respuesta_Library> response) {
                 if(response.isSuccessful()){
+                    progressBar.setVisibility(View.GONE);
                     Respuesta_Library respuesta = response.body();
                     int code = respuesta.getCode();
                     if(code == 200){

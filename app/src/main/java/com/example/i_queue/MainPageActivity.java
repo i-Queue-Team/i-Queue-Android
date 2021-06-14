@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -33,8 +35,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -62,8 +62,10 @@ public class MainPageActivity extends AppCompatActivity {
         settings = findViewById(R.id.settings);
         qr_button = findViewById(R.id.qr);
         Toolbar toolbar = findViewById(R.id.toolbar_2);
+
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.parseColor("white"));
+
         SharedPreferences preferences = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
 
@@ -76,6 +78,7 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
         qr_button.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
                 final int MY_CAMERA_REQUEST_CODE = 100;
@@ -147,7 +150,7 @@ public class MainPageActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
-
+                Toast.makeText(MainPageActivity.this, "Hubo un fallo al entrar en la cola", Toast.LENGTH_SHORT).show();
             }
         });
 

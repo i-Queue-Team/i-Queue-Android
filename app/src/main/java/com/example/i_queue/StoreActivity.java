@@ -27,20 +27,24 @@ public class StoreActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.store_activity);
-        Bundle extras = getIntent().getExtras();
+
         name = findViewById(R.id.name_commerce);
         map = findViewById(R.id.map_button);
         imageView = findViewById(R.id.image_commerce);
         descripción = findViewById(R.id.details);
         store_tool = findViewById(R.id.toolbar_store);
+
+        Bundle extras = getIntent().getExtras();
         name_commerce = extras.getString("name");
         image = extras.getString("image");
         descripción_text = extras.getString("description");
         latitude = extras.getString("latitude");
         longitude = extras.getString("longitude");
+
         descripción.setText(descripción_text);
         Picasso.get().load(image).into(imageView);
         name.setText(name_commerce);
+
         setSupportActionBar(store_tool);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(name_commerce);

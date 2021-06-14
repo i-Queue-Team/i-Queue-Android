@@ -1,10 +1,7 @@
 package com.example.i_queue;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,24 +17,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.i_queue.models.Data;
-import com.example.i_queue.models.Data_Queue;
 import com.example.i_queue.models.Queue;
-import com.example.i_queue.models.Respuesta;
-import com.example.i_queue.models.Respuesta_Library;
 import com.example.i_queue.models.Respuesta_Queue;
 import com.example.i_queue.webservice.WebServiceClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -59,7 +47,6 @@ public class Fragment_queue extends Fragment {
     private GridLayoutManager layoutManager;
     private List<Queue> queueList;
     private String token;
-    private Runnable mTicker;
     private ProgressBar progressBar;
     private TextView esconder_2;
     private ImageView esconder;
@@ -67,13 +54,17 @@ public class Fragment_queue extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        SharedPreferences prefs = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
-        token = prefs.getString("token", "");
         View view = inflater.inflate(R.layout.frag_queue, container, false);
-        queueList = new ArrayList<>();
+
         esconder_2 = view.findViewById(R.id.esconder_2);
         esconder = view.findViewById(R.id.esconder);
         progressBar = view.findViewById(R.id.progressbar_queue);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+        token = prefs.getString("token", "");
+
+        queueList = new ArrayList<>();
+
         progressBar.setVisibility(View.VISIBLE);
         recyclerView = view.findViewById(R.id.recycler_queue);
         layoutManager = new GridLayoutManager(getActivity(), 1);
@@ -129,7 +120,7 @@ public class Fragment_queue extends Fragment {
                             adapter.setQueue(queueList);
 
                         }else {
-                            Toast.makeText(getActivity(), "Hubo un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "No se pudieron obtener las colas actuales", Toast.LENGTH_SHORT).show();
                         }
                     }else{
                         esconder_2.setVisibility(View.GONE);
@@ -144,7 +135,7 @@ public class Fragment_queue extends Fragment {
                             adapter.setQueue(queueList);
 
                         }else {
-                            Toast.makeText(getActivity(), "Hubo un error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "No se pudieron obtener las colas actuales", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -154,6 +145,7 @@ public class Fragment_queue extends Fragment {
             @Override
             public void onFailure(Call<Respuesta_Queue> call, Throwable t) {
                 Log.d("call" , t.getMessage());
+                Toast.makeText(getContext(), "No se pudieron obtener las colas actuales", Toast.LENGTH_SHORT).show();
             }
         });
 

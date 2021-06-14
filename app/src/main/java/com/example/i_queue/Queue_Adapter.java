@@ -2,29 +2,21 @@ package com.example.i_queue;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
+
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.i_queue.models.Data;
-import com.example.i_queue.models.Data_Queue;
 import com.example.i_queue.models.Queue;
 import com.example.i_queue.models.Respuesta;
-import com.example.i_queue.models.Respuesta_Queue;
 import com.example.i_queue.webservice.WebServiceClient;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
@@ -144,7 +136,7 @@ public class Queue_Adapter extends RecyclerView.Adapter<Queue_Adapter.QueueHolde
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
-
+                Toast.makeText(context, "Hubo un fallo al intentar salir de la cola", Toast.LENGTH_SHORT).show();
             }
         });
     }

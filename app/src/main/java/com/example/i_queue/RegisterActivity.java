@@ -44,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar_2);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(Color.parseColor("white"));
+
         user_editext = findViewById(R.id.user);
         email_editext = findViewById(R.id.email);
         pass_editext = findViewById(R.id.password);
@@ -135,15 +136,12 @@ public class RegisterActivity extends AppCompatActivity {
                 Respuesta respuesta = response.body();
                 if(response.isSuccessful()){
                     callback.response(respuesta);
-                }else{
-                    Toast.makeText(RegisterActivity.this, "Fallo el registro", Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
-
+                Toast.makeText(RegisterActivity.this, "Hubo un fallo y no se pudo registrar el usuario", Toast.LENGTH_SHORT).show();
             }
         });
 
