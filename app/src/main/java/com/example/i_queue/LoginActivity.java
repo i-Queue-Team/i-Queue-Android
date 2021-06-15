@@ -129,9 +129,11 @@ public class LoginActivity extends AppCompatActivity {
                                                     Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
                                                     LoginActivity.this.startActivity(myIntent);
                                                     finish();
-                                                }else{
-                                                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                                                }else if (code == 401){
+                                                    Toast.makeText(LoginActivity.this, "Las credenciales son invalidas", Toast.LENGTH_SHORT).show();
                                                 }
+                                            }else{
+                                                Toast.makeText(LoginActivity.this, "El email introducido es invalido", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });
@@ -252,6 +254,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "La petición de login fallo", Toast.LENGTH_SHORT).show();
                 showProgressBar(false);
             }
         });

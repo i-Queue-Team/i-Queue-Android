@@ -94,6 +94,7 @@ public class PreferencesFragment extends PreferenceFragmentCompat implements Sha
                 builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getActivity(), "Has cerrado sesión", Toast.LENGTH_SHORT).show();
                         getActivity().onBackPressed();
                         startActivity(new Intent(getContext(), LoginActivity.class));
                         ActivityCompat.finishAffinity(getActivity());

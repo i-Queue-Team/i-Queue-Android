@@ -42,7 +42,7 @@
                 android:fontFamily="sans-serif-condensed"
                 android:hint="Usuario"
                 android:inputType="text"
-                android:textColor="#E6DDDD"
+                android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFFFF"
                 android:textColorLink="#FFFFFF" />
@@ -57,6 +57,7 @@
             android:layout_marginEnd="24dp"
             android:padding="15dp"
             android:textColorHint="#BFFFFFFF"
+            app:hintTextColor="#F4F2F2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout4">
@@ -70,9 +71,10 @@
                 android:fontFamily="sans-serif-condensed"
                 android:hint="Correo Electronico"
                 android:inputType="textEmailAddress"
-                android:textColor="#E6DDDD"
+                android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -82,7 +84,8 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:padding="15dp"
-            android:textColorHint="#BFFFFFFF"
+            android:textColorHint="#BFF8F7F7"
+            app:hintTextColor="#FFFCFC"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout5">
@@ -95,9 +98,10 @@
                 android:backgroundTint="#00bfa5"
                 android:fontFamily="sans-serif-condensed"
                 android:hint="Contraseña"
-                android:textColor="#E6DDDD"
+                android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
-                android:textColorHint="#FFFFFF" />
+                android:textColorHint="#FFFFFF"
+                android:textColorLink="#FFFFFF" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -121,7 +125,7 @@
                 android:backgroundTint="#00bfa5"
                 android:fontFamily="sans-serif-condensed"
                 android:hint="Confirmación de la Contraseña"
-                android:textColor="#E6DDDD"
+                android:textColor="#FFFFFF"
                 android:textColorHighlight="#FFFFFF"
                 android:textColorHint="#FFFFFF"
                 android:textColorLink="#FFFFFF" />

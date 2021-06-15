@@ -136,6 +136,8 @@ public class RegisterActivity extends AppCompatActivity {
                 Respuesta respuesta = response.body();
                 if(response.isSuccessful()){
                     callback.response(respuesta);
+                }else{
+                    Toast.makeText(RegisterActivity.this, "El correo electronico ya ha sido registrado", Toast.LENGTH_SHORT).show();
                 }
             }
 
