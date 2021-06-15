@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     private HttpLoggingInterceptor loggingInterceptor;
     private OkHttpClient.Builder httpClientBuilder;
     private Toolbar toolbar;
+    private AlertDialog show;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,46 +152,8 @@ public class LoginActivity extends AppCompatActivity {
         olvida.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-
-                LayoutInflater inflater = LoginActivity.this.getLayoutInflater();
-                final AlertDialog show = builder.show();
-
-                v = inflater.inflate(R.layout.dialog_login, null);
-
-                builder.setView(v);
-
-                Button cancelar = (Button) v.findViewById(R.id.cancelar_lg);
-                Button cambiar = (Button) v.findViewById(R.id.cambiar_lg);
-                TextInputEditText email_field = (TextInputEditText) v.findViewById(R.id.email_field_login);
-
-                cambiar.setOnClickListener(
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                String email_recupera = String.valueOf(email_field.getText());
-                                if(email_recupera.equals("")){
-                                    Toast.makeText(LoginActivity.this, "Introduce un email", Toast.LENGTH_SHORT).show();
-                                }else if(!validarEmail(email_recupera)){
-                                    Toast.makeText(LoginActivity.this, "Introduce un email valido", Toast.LENGTH_SHORT).show();
-                                }else{
-                                    ForgottenPassword(email_recupera);
-                                    show.cancel();
-                                }
-                            }
-                        }
-                );
-
-                cancelar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        show.cancel();
-                    }
-                });
-
-                 builder.create();
-                 builder.show();
+                show = alertDialog();
+                show.show();
             }
         });
 
@@ -328,5 +291,46 @@ public class LoginActivity extends AppCompatActivity {
 
     private interface Async{
         void response(Respuesta respuesta);
+    }
+
+
+    private AlertDialog alertDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+
+        LayoutInflater inflater = LoginActivity.this.getLayoutInflater();
+
+        View v = inflater.inflate(R.layout.dialog_login, null);
+
+        builder.setView(v);
+
+        Button cancelar = (Button) v.findViewById(R.id.cancelar_lg);
+        Button cambiar = (Button) v.findViewById(R.id.cambiar_lg);
+        TextInputEditText email_field = (TextInputEditText) v.findViewById(R.id.email_field_login);
+
+        cambiar.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String email_recupera = String.valueOf(email_field.getText());
+                        if(email_recupera.equals("")){
+                            Toast.makeText(LoginActivity.this, "Introduce un email", Toast.LENGTH_SHORT).show();
+                        }else if(!validarEmail(email_recupera)){
+                            Toast.makeText(LoginActivity.this, "Introduce un email valido", Toast.LENGTH_SHORT).show();
+                        }else{
+                            ForgottenPassword(email_recupera);
+                            show.dismiss();
+                        }
+                    }
+                }
+        );
+
+        cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                show.dismiss();
+            }
+        });
+
+        return builder.create();
     }
 }

@@ -89,7 +89,7 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                     options.title(data.getName());
                     options.icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
                     options.snippet("Holas");
-                    //options.snippet(data.getDireccion());
+                    options.snippet(data.getAddress());
                     map.addMarker(options).setTag(i);
                 }
 
@@ -102,6 +102,7 @@ public class Fragment_map extends Fragment implements OnMapReadyCallback{
                                 Intent intent = new Intent(getActivity(), StoreActivity.class);
                                 intent.putExtra("name", data.getName());
                                 intent.putExtra("name", data.getName());
+                                intent.putExtra("address", data.getAddress());
                                 intent.putExtra("description", data.getInfo());
                                 intent.putExtra("image", data.getImage());
                                 intent.putExtra("latitude", data.getLatitude().toString());

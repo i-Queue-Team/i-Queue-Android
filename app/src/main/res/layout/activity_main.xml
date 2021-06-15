@@ -48,6 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#00000000"
+            android:fontFamily="sans-serif-condensed"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:textColor="#FFFFFF"
@@ -84,6 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#00000000"
+            android:fontFamily="sans-serif-condensed"
             android:hint="Password"
             android:password="true"
             android:textColor="#FFFFFF"
@@ -99,6 +101,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="25dp"
         android:layout_marginBottom="25dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="right"
         android:text="¿Has olvidado la contraseña?"
         android:textColor="#FF018786" />
@@ -117,6 +120,7 @@
             android:layout_marginTop="55dp"
             android:layout_marginRight="25dp"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
             android:text="Registro" />
 
         <Button
@@ -127,6 +131,7 @@
             android:layout_marginTop="55dp"
             android:layout_marginRight="25dp"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
             android:text="Entrar" />
     </LinearLayout>
 

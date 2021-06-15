@@ -17,8 +17,8 @@ import com.squareup.picasso.Picasso;
 
 public class StoreActivity extends AppCompatActivity {
 
-    private String name_commerce, image, descripción_text, latitude, longitude;
-    private TextView name, descripción;
+    private String name_commerce, image, descripción_text, latitude, longitude, address_text;
+    private TextView name, descripción ,address;
     private ImageView imageView;
     private Toolbar store_tool;
     private Button map;
@@ -32,6 +32,7 @@ public class StoreActivity extends AppCompatActivity {
         map = findViewById(R.id.map_button);
         imageView = findViewById(R.id.image_commerce);
         descripción = findViewById(R.id.details);
+        address = findViewById(R.id.address_store);
         store_tool = findViewById(R.id.toolbar_store);
 
         Bundle extras = getIntent().getExtras();
@@ -40,7 +41,9 @@ public class StoreActivity extends AppCompatActivity {
         descripción_text = extras.getString("description");
         latitude = extras.getString("latitude");
         longitude = extras.getString("longitude");
+        address_text = extras.getString("address");
 
+        address.setText("Dirección: \n" +address_text);
         descripción.setText(descripción_text);
         Picasso.get().load(image).into(imageView);
         name.setText(name_commerce);

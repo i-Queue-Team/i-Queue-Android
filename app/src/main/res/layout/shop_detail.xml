@@ -5,7 +5,7 @@
     android:id="@+id/pulsar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_margin="15dp"
     android:background="@drawable/bordes">
 
     <ImageButton
@@ -17,8 +17,9 @@
         android:cropToPadding="false"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address_detail"
+        app:layout_constraintTop_toBottomOf="@+id/name_shop_detail_list"
         app:srcCompat="@drawable/comercio" />
 
     <TextView
@@ -27,10 +28,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Telepizza"
         android:textColor="#26a69a"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,23 +41,12 @@
         android:id="@+id/address_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Address"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/image_shop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name_shop_detail_list" />
-
-    <TextView
-        android:id="@+id/description_detail"
-        android:layout_width="330dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
-        android:maxLines="3"
-        android:text="TextView"
+        android:text="Address"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

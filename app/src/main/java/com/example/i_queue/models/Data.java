@@ -6,52 +6,11 @@ import android.os.Parcelable;
 public class Data implements Parcelable {
 
     private int id, user_id;
-    private String name, created_at, updated_at, info, image;
+    private String name, created_at, updated_at, info, image, address;
     private Double latitude, longitude;
 
-    public Data(int id, int user_id, String name, String created_at, String updated_at, String info, String image, Double latitude, Double longitude) {
-        this.id = id;
-        this.user_id = user_id;
-        this.name = name;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.info = info;
-        this.image = image;
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public Data() {
     }
-
-    protected Data(Parcel in) {
-        id = in.readInt();
-        user_id = in.readInt();
-        name = in.readString();
-        created_at = in.readString();
-        updated_at = in.readString();
-        info = in.readString();
-        image = in.readString();
-        if (in.readByte() == 0) {
-            latitude = null;
-        } else {
-            latitude = in.readDouble();
-        }
-        if (in.readByte() == 0) {
-            longitude = null;
-        } else {
-            longitude = in.readDouble();
-        }
-    }
-
-    public static final Creator<Data> CREATOR = new Creator<Data>() {
-        @Override
-        public Data createFromParcel(Parcel in) {
-            return new Data(in);
-        }
-
-        @Override
-        public Data[] newArray(int size) {
-            return new Data[size];
-        }
-    };
 
     public int getId() {
         return id;
@@ -109,6 +68,14 @@ public class Data implements Parcelable {
         this.image = image;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Double getLatitude() {
         return latitude;
     }
@@ -132,24 +99,6 @@ public class Data implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeInt(user_id);
-        dest.writeString(name);
-        dest.writeString(created_at);
-        dest.writeString(updated_at);
-        dest.writeString(info);
-        dest.writeString(image);
-        if (latitude == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(latitude);
-        }
-        if (longitude == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeDouble(longitude);
-        }
+
     }
 }

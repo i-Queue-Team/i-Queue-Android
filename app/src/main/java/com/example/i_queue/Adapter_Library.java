@@ -46,9 +46,8 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
         SpannableString texto = new SpannableString(commerce.getName());
         texto.setSpan(new UnderlineSpan(), 0, texto.length(), 0);
         holder.name.setText(texto);
-        holder.description.setText(commerce.getInfo());
         Picasso.get().load(commerce.getImage()).into(holder.imageView);
-        //holder.personas.setText(commerce.get);
+        holder.address.setText(commerce.getAddress());
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +58,7 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
                 extras.putString("image", commerce.getImage());
                 extras.putString("latitude", commerce.getLatitude().toString());
                 extras.putString("longitude", commerce.getLongitude().toString());
+                extras.putString("address", commerce.getAddress());
                 intent.putExtras(extras);
                 context.startActivity(intent);
             }
@@ -72,6 +72,7 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
                 extras.putString("description", commerce.getInfo());
                 extras.putString("image", commerce.getImage());
                 extras.putString("latitude", commerce.getLatitude().toString());
+                extras.putString("address", commerce.getAddress());
                 extras.putString("longitude", commerce.getLongitude().toString());
                 intent.putExtras(extras);
                 context.startActivity(intent);
@@ -93,7 +94,7 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
 
     static class LibraryHolder extends RecyclerView.ViewHolder{
 
-        TextView name, address, description;
+        TextView name, address;
         ConstraintLayout pulsar;
         ImageView imageView;
 
@@ -103,7 +104,6 @@ public class Adapter_Library extends RecyclerView.Adapter<Adapter_Library.Librar
             pulsar = v.findViewById(R.id.pulsar);
             imageView = v.findViewById(R.id.image_shop);
             address = v.findViewById(R.id.address_detail);
-            description = v.findViewById(R.id.description_detail);
         }
     }
 

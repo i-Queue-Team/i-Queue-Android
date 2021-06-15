@@ -26,15 +26,21 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.i_queue.models.Queue;
 import com.example.i_queue.models.Respuesta;
+import com.example.i_queue.models.Respuesta_Queue;
 import com.example.i_queue.webservice.WebServiceClient;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -52,7 +58,6 @@ public class MainPageActivity extends AppCompatActivity {
     private String token, password_verification, queue_id;
     private HttpLoggingInterceptor loggingInterceptor;
     private OkHttpClient.Builder httpClientBuilder;
-    private Queue_Adapter adapter;
     private Respuesta respuesta;
 
     @Override

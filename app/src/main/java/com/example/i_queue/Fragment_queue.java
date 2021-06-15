@@ -21,7 +21,6 @@ import com.example.i_queue.models.Queue;
 import com.example.i_queue.models.Respuesta_Queue;
 import com.example.i_queue.webservice.WebServiceClient;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
@@ -48,15 +47,23 @@ public class Fragment_queue extends Fragment {
     private List<Queue> queueList;
     private String token;
     private ProgressBar progressBar;
-    private TextView esconder_2;
+    private TextView esconder_2, esconder_3;
     private ImageView esconder;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        GetQueue("Bearer " + token);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_queue, container, false);
 
+        recyclerView = view.findViewById(R.id.recycler_view);
         esconder_2 = view.findViewById(R.id.esconder_2);
+        esconder_3 = view.findViewById(R.id.esconder_3);
         esconder = view.findViewById(R.id.esconder);
         progressBar = view.findViewById(R.id.progressbar_queue);
 
@@ -66,12 +73,11 @@ public class Fragment_queue extends Fragment {
         queueList = new ArrayList<>();
 
         progressBar.setVisibility(View.VISIBLE);
-        recyclerView = view.findViewById(R.id.recycler_queue);
+        recyclerView = view.findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new Queue_Adapter(queueList, getActivity());
         recyclerView.setAdapter(adapter);
-        GetQueue("Bearer " + token);
 
 //            final Handler mHandler = new Handler();
 //            mTicker = new Runnable() {
@@ -102,43 +108,29 @@ public class Fragment_queue extends Fragment {
         llamada.enqueue(new Callback<Respuesta_Queue>() {
             @Override
             public void onResponse(Call<Respuesta_Queue> call, Response<Respuesta_Queue> response) {
-                if(response.isSuccessful()){
+                if (response.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
                     Respuesta_Queue respuesta = response.body();
-                    JsonArray array = new JsonArray();
-                    if(respuesta.getData().equals(array)){
-                        esconder_2.setVisibility(View.VISIBLE);
-                        esconder.setVisibility(View.VISIBLE);
-
-                        int code = respuesta.getCode();
-                        if(code == 200){
-                            for (JsonElement json: respuesta.getData()) {
-                                Gson gson = new Gson();
-                                Queue queue = gson.fromJson(json, Queue.class);
-                                queueList.add(queue);
-                            }
-                            adapter.setQueue(queueList);
-
-                        }else {
-                            Toast.makeText(getActivity(), "No se pudieron obtener las colas actuales", Toast.LENGTH_SHORT).show();
+                    int code = respuesta.getCode();
+                    if (code == 200) {
+                        for (JsonElement json : respuesta.getData()) {
+                            Gson gson = new Gson();
+                            Queue queue = gson.fromJson(json, Queue.class);
+                            queueList.add(queue);
                         }
-                    }else{
-                        esconder_2.setVisibility(View.GONE);
-                        esconder.setVisibility(View.GONE);
-                        int code = respuesta.getCode();
-                        if(code == 200){
-                            for (JsonElement json: respuesta.getData()) {
-                                Gson gson = new Gson();
-                                Queue queue = gson.fromJson(json, Queue.class);
-                                queueList.add(queue);
-                            }
-                            adapter.setQueue(queueList);
-
-                        }else {
-                            Toast.makeText(getActivity(), "No se pudieron obtener las colas actuales", Toast.LENGTH_SHORT).show();
+                        if(queueList.size() < 1){
+                            esconder_3.setVisibility(View.VISIBLE);
+                            esconder.setVisibility(View.VISIBLE);
+                            esconder_2.setVisibility(View.VISIBLE);
+                        }else{
+                            esconder_3.setVisibility(View.GONE);
+                            esconder.setVisibility(View.GONE);
+                            esconder_2.setVisibility(View.GONE);
                         }
+                        adapter.setQueue(queueList);
+                    } else {
+                        Toast.makeText(getActivity(), "No se pudieron obtener las colas actuales", Toast.LENGTH_SHORT).show();
                     }
-
                 }
             }
 

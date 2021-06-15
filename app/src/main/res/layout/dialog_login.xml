@@ -20,6 +20,7 @@
         android:id="@+id/textView"
         android:layout_width="357dp"
         android:layout_height="98dp"
+        android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="Introduce tu email para enviar la recuperación a tu email"
         android:textSize="20sp"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="Cancelar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_field_login" />
@@ -43,6 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:fontFamily="sans-serif-condensed"
         android:text="Cambiar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_field_login" />
@@ -52,6 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif-condensed"
         android:hint="Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

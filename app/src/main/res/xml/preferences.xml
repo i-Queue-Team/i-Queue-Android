@@ -4,11 +4,20 @@
     <PreferenceScreen
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:key="pref_open_service_key2"
-        android:title="Eliminar cuenta"></PreferenceScreen>
+        android:key="pref_open_service_key1"
+        android:title="Acerca de nosotros"></PreferenceScreen>
+
     <PreferenceScreen
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:key="pref_open_service_key3"
         android:title="Cerrar sesión"></PreferenceScreen>
+
+    <PreferenceScreen
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:key="pref_open_service_key2"
+        android:title="Eliminar cuenta"></PreferenceScreen>
+
+
 </PreferenceScreen>

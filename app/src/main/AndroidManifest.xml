@@ -28,6 +28,7 @@
         <activity android:name=".StoreActivity"></activity>
         <activity android:name=".QrCodeScanner"></activity>
         <activity android:name=".Settings_class"></activity>
+        <activity android:name=".Acercade_Activity"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBmWJrQnkuarcBfwPDDL92VDpXjaBHajIg"/>
