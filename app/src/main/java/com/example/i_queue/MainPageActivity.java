@@ -150,12 +150,57 @@ public class MainPageActivity extends AppCompatActivity {
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
                if(response.isSuccessful()){
                    respuesta = response.body();
+                   int code = respuesta.getCode();
+                   int queue_id_ = Integer.parseInt(queue_id);
+                   if(code == 409){
+                        lanzarPeticion2(token, queue_id_);
+                   }
                }
             }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
                 Toast.makeText(MainPageActivity.this, "Hubo un fallo al entrar en la cola", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void lanzarPeticion2(String token, int queue_id){
+        loggingInterceptor = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+        httpClientBuilder = new OkHttpClient.Builder().addInterceptor(loggingInterceptor);
+
+        retrofit = new Retrofit.Builder()
+                .baseUrl(WebServiceClient.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(httpClientBuilder.build())
+                .build();
+        WebServiceClient client = retrofit.create(WebServiceClient.class);
+
+        HashMap<String, Integer> hashMap = new HashMap<>();
+
+        hashMap.put("queue_id", queue_id);
+
+        Call<Respuesta> llamada = client.entryCheck(token, hashMap);
+        llamada.enqueue(new Callback<Respuesta>() {
+            @Override
+            public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
+                Respuesta respuesta1 = response.body();
+                int code = respuesta1.getCode();
+                if(response.isSuccessful()){
+                    if(code == 200){
+                        Intent myIntent = new Intent(MainPageActivity.this, Enter_Activity.class);
+                        MainPageActivity.this.startActivity(myIntent);
+                    }else if (code  == 409){
+                        Intent myIntent = new Intent(MainPageActivity.this, Exit_Activity.class);
+                        MainPageActivity.this.startActivity(myIntent);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Respuesta> call, Throwable t) {
+
             }
         });
 

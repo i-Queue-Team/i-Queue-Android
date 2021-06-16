@@ -50,12 +50,6 @@ public class Fragment_queue extends Fragment {
     private TextView esconder_2, esconder_3;
     private ImageView esconder;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        GetQueue("Bearer " + token);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +72,10 @@ public class Fragment_queue extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new Queue_Adapter(queueList, getActivity());
         recyclerView.setAdapter(adapter);
+        GetQueue("Bearer " + token);
+        esconder.setVisibility(View.GONE);
+        esconder_2.setVisibility(View.GONE);
+        esconder_3.setVisibility(View.GONE);
 
 //            final Handler mHandler = new Handler();
 //            mTicker = new Runnable() {

@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(respuesta != null){
                                     int code = respuesta.getCode();
                                     if(code == 200){
-                                        Toast.makeText(RegisterActivity.this, respuesta.getMessage(), Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegisterActivity.this, "Se ha realizado el registro correctamente", Toast.LENGTH_SHORT).show();
                                         finish();
                                     }
                             }

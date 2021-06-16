@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText email_field, pass_field;
     private TextInputLayout ter1, ter2;
-    private String email_text, pass_text, token, remember_token;
+    private String email_text, pass_text, token, remember_token, user_name;
     private int id_user;
     private Button login, register_login;
     private ProgressBar progressBar;
@@ -121,10 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                                                     User_Login user = gson.fromJson(data,User_Login.class);
                                                     token = user.getToken();
                                                     id_user = user.getId();
+                                                    user_name = user.getName();
                                                     editor.putString("token", token);
                                                     editor.putString("user_login", email_text);
                                                     editor.putString("user_pass", pass_text);
                                                     editor.putInt("id_user", id_user);
+                                                    editor.putString("user_name", user_name);
                                                     editor.apply();
                                                     Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
                                                     LoginActivity.this.startActivity(myIntent);
@@ -196,8 +198,10 @@ public class LoginActivity extends AppCompatActivity {
                                             User_Login user = gson.fromJson(data,User_Login.class);
                                             token = user.getToken();
                                             id_user = user.getId();
+                                            user_name = user.getName();
                                             editor.putString("token", token);
                                             editor.putInt("id_user", id_user);
+                                            editor.putString("user_name" , user_name);
                                             editor.apply();
                                             Intent myIntent = new Intent(LoginActivity.this, MainPageActivity.class);
                                             LoginActivity.this.startActivity(myIntent);
@@ -282,12 +286,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<Respuesta> call, Response<Respuesta> response) {
                 if(response.isSuccessful()){
                     Toast.makeText(LoginActivity.this, "El email se envio correctamente", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(LoginActivity.this, "El email no se envio correctamente", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Respuesta> call, Throwable t) {
-
+                Toast.makeText(LoginActivity.this, "El email no se envio correctamente", Toast.LENGTH_SHORT).show();
             }
         });
     }

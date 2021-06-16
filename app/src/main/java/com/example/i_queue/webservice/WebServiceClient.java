@@ -51,4 +51,7 @@ public interface WebServiceClient {
     @POST("forgot-password")
     Call<Respuesta> forgottenPassword (@Body HashMap<String,String> email);
 
+    @Headers({"Content-Type: application/json", "Accept: */*"})
+    @POST("queue-verified-users-check")
+    Call<Respuesta> entryCheck (@Header("Authorization") String authKey, @Body HashMap<String,Integer> queue_id);
 }
