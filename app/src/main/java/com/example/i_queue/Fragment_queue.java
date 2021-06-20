@@ -40,7 +40,7 @@ public class Fragment_queue extends Fragment {
 
     private RecyclerView recyclerView;
     private Retrofit retrofit;
-    private Queue_Adapter adapter;
+    private Adapter_Queue adapter;
     private HttpLoggingInterceptor loggingInterceptor;
     private OkHttpClient.Builder httpClientBuilder;
     private GridLayoutManager layoutManager;
@@ -49,6 +49,7 @@ public class Fragment_queue extends Fragment {
     private ProgressBar progressBar;
     private TextView esconder_2, esconder_3;
     private ImageView esconder;
+
 
     @Nullable
     @Override
@@ -70,7 +71,7 @@ public class Fragment_queue extends Fragment {
         recyclerView = view.findViewById(R.id.recycler_view);
         layoutManager = new GridLayoutManager(getActivity(), 1);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new Queue_Adapter(queueList, getActivity());
+        adapter = new Adapter_Queue(queueList, getActivity());
         recyclerView.setAdapter(adapter);
         GetQueue("Bearer " + token);
         esconder.setVisibility(View.GONE);

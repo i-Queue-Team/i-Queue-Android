@@ -22,10 +22,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +35,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class Queue_Adapter extends RecyclerView.Adapter<Queue_Adapter.QueueHolder>{
+public class Adapter_Queue extends RecyclerView.Adapter<Adapter_Queue.QueueHolder>{
 
     private List<Queue> queue;
     private Context context;
@@ -46,20 +44,20 @@ public class Queue_Adapter extends RecyclerView.Adapter<Queue_Adapter.QueueHolde
     private HttpLoggingInterceptor loggingInterceptor;
     private OkHttpClient.Builder httpClientBuilder;
 
-    public Queue_Adapter(List<Queue> queue, Context context) {
+    public Adapter_Queue(List<Queue> queue, Context context) {
         this.queue = queue;
         this.context = context;
     }
 
     @Override
-    public Queue_Adapter.QueueHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Adapter_Queue.QueueHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemview = LayoutInflater.from(parent.getContext()).inflate(R.layout.current_queue,parent ,false);
-        Queue_Adapter.QueueHolder holder = new Queue_Adapter.QueueHolder(itemview);
+        Adapter_Queue.QueueHolder holder = new Adapter_Queue.QueueHolder(itemview);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(Queue_Adapter.QueueHolder holder, int position) {
+    public void onBindViewHolder(Adapter_Queue.QueueHolder holder, int position) {
         SharedPreferences preferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);
         token = preferences.getString("token", "");
 

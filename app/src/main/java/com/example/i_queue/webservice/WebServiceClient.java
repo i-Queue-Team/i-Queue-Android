@@ -17,7 +17,7 @@ import retrofit2.http.Path;
 
 public interface WebServiceClient {
 
-    public static final String BASE_URL = "http://10.144.110.119/i-Queue-BackEnd/public/api/";
+    public static final String BASE_URL = "http://35.181.160.138/proyectos/queue/public/api/";
 
     @Headers({"Content-Type: application/json", "Accept: */*"})
     @POST("register")

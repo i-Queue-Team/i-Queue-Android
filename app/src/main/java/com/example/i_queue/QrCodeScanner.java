@@ -10,6 +10,13 @@ public class QrCodeScanner extends AppCompatActivity implements ZXingScannerView
     private ZXingScannerView mScannerView;
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(QrCodeScanner.this , MainPageActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
     public void onCreate(Bundle state) {
         super.onCreate(state);
         mScannerView = new ZXingScannerView(this);
